@@ -42,14 +42,14 @@ class DoubanmovieupdatePipeline(object):
         movie = dict(item)
         name = movie['name'][0]
         movie_id = movie['movieid']
-        year = movie['year']
-        score = movie['score']
+        year = movie['year'][0] if movie['year'] else '0000'
+        score = movie['score'][0] if movie['score'] else '0.01'
         classification = movie['classification']
         poster_url = movie['poster_url']
         actor = movie['actor']
         director = movie['director']
                         
-        log.info('Adding movie: ' + name)
+        log.info('Adding movie ' + name)
                         
         response = table.put_item(
             Item={
